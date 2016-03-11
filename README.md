@@ -1,4 +1,13 @@
-# WebTorrent.app
+<h1 align="center">
+  <br>
+  <img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="200">
+  <br>
+  WebTorrent.app
+  <br>
+  <br>
+</h1>
+
+> WebTorrent, the streaming torrent client. For OS X, Windows, and Linux.
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 [![Travis Build][webtorrent-app-travis-image]][webtorrent-app-travis-url]
@@ -7,10 +16,6 @@
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 [webtorrent-app-travis-image]: https://img.shields.io/travis/feross/webtorrent-app/master.svg
 [webtorrent-app-travis-url]: https://travis-ci.org/feross/webtorrent-app
-
-#### WebTorrent, the streaming torrent client. For OS X, Windows, and Linux.
-
-<img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="100">
 
 ## Install
 
