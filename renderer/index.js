@@ -128,7 +128,7 @@ function init () {
   console.timeEnd('init')
 }
 
-// This is the (mostly) pure funtion from state -> UI. Returns a virtual DOM
+// This is the (mostly) pure function from state -> UI. Returns a virtual DOM
 // tree. Any events, such as button clicks, will turn into calls to dispatch()
 function render (state) {
   return App(state, dispatch)
@@ -205,6 +205,9 @@ function dispatch (action, ...args) {
     }
     state.video.isPaused = true
     update()
+  }
+  if (action === 'videoPlaying') {
+    ipcRenderer.send('playing-video')
   }
   if (action === 'videoPaused') {
     ipcRenderer.send('paused-video')

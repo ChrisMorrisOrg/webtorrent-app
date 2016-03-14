@@ -103,20 +103,26 @@ function renderTorrentButtons (torrentSummary, dispatch) {
     <div class='buttons'>
       <i.btn.icon.download
         class='${torrentSummary.status}'
-        onclick=${() => dispatch('toggleTorrent', torrentSummary)}>
+        onclick=${(e) => handleButton('toggleTorrent', e)}>
         ${torrentSummary.status === 'seeding' ? 'file_upload' : 'file_download'}
       </i>
       <i.btn.icon.play
-        onclick=${() => dispatch('openPlayer', torrentSummary)}>
+        onclick=${(e) => handleButton('openPlayer', e)}>
         ${torrentSummary.playStatus === 'timeout' ? 'warning' : 'play_arrow'}
       </i>
       <i
         class='icon delete'
-        onclick=${() => dispatch('deleteTorrent', torrentSummary)}>
+        onclick=${(e) => handleButton('deleteTorrent', e)}>
         close
       </i>
     </div>
   `
+
+  function handleButton (action, e) {
+    // Prevent propagation so that we don't select/unselect the torrent
+    e.stopPropagation()
+    dispatch(action, torrentSummary)
+  }
 }
 
 // Show files, per-file download status and play buttons, and so on
@@ -131,11 +137,12 @@ function renderTorrentDetails (torrent, torrentSummary) {
   } else {
     // We do know the files. List them and show download stats for each one
     var fileRows = torrent.files.map(function (file) {
-      var numPieces = 0
-      for (var piece = file._startPiece; piece < file._endPiece; piece++) {
-        if (torrent.bitfield.get(piece)) numPieces++
+      var numPieces = file._endPiece - file._startPiece + 1
+      var numPiecesPresent = 0
+      for (var piece = file._startPiece; piece <= file._endPiece; piece++) {
+        if (torrent.bitfield.get(piece)) numPiecesPresent++
       }
-      var progress = Math.round(100 * numPieces / (file._endPiece - file._startPiece)) + '%'
+      var progress = Math.round(100 * numPiecesPresent / numPieces) + '%'
       return hx`
         <tr>
           <td class='col-name'>${file.name}</td>
